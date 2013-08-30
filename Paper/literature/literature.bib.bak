@@ -1,0 +1,142 @@
+% This file was created with JabRef 2.9.2.
+% Encoding: Cp1252
+
+@INPROCEEDINGS{Cooper:2010:BCS:1807128.1807152,
+  author = {Cooper, Brian F. and Silberstein, Adam and Tam, Erwin and Ramakrishnan,
+	Raghu and Sears, Russell},
+  title = {Benchmarking cloud serving systems with YCSB},
+  booktitle = {Proceedings of the 1st ACM symposium on Cloud computing},
+  year = {2010},
+  series = {SoCC '10},
+  pages = {143--154},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  acmid = {1807152},
+  doi = {10.1145/1807128.1807152},
+  isbn = {978-1-4503-0036-0},
+  keywords = {benchmarking, cloud serving database},
+  location = {Indianapolis, Indiana, USA},
+  numpages = {12},
+  url = {http://doi.acm.org/10.1145/1807128.1807152}
+}
+
+@INPROCEEDINGS{Ferdman:2012:CCS:2150976.2150982,
+  author = {Ferdman, Michael and Adileh, Almutaz and Kocberber, Onur and Volos,
+	Stavros and Alisafaee, Mohammad and Jevdjic, Djordje and Kaynak,
+	Cansu and Popescu, Adrian Daniel and Ailamaki, Anastasia and Falsafi,
+	Babak},
+  title = {Clearing the clouds: a study of emerging scale-out workloads on modern
+	hardware},
+  booktitle = {Proceedings of the seventeenth international conference on Architectural
+	Support for Programming Languages and Operating Systems},
+  year = {2012},
+  series = {ASPLOS XVII},
+  pages = {37--48},
+  address = {New York, NY, USA},
+  publisher = {ACM},
+  acmid = {2150982},
+  doi = {10.1145/2150976.2150982},
+  isbn = {978-1-4503-0759-8},
+  keywords = {architectural evaluation, cloud computing, design insights, workload
+	characterization},
+  location = {London, England, UK},
+  numpages = {12},
+  url = {http://doi.acm.org/10.1145/2150976.2150982}
+}
+
+@INPROCEEDINGS{5452747,
+  author = {Shengsheng Huang and Jie Huang and Jinquan Dai and Tao Xie and Bo
+	Huang},
+  title = {The HiBench benchmark suite: Characterization of the MapReduce-based
+	data analysis},
+  booktitle = {Data Engineering Workshops (ICDEW), 2010 IEEE 26th International
+	Conference on},
+  year = {2010},
+  pages = {41-51},
+  abstract = {The MapReduce model is becoming prominent for the large-scale data
+	analysis in the cloud. In this paper, we present the benchmarking,
+	evaluation and characterization of Hadoop, an open-source implementation
+	of MapReduce. We first introduce HiBench, a new benchmark suite for
+	Hadoop. It consists of a set of Hadoop programs, including both synthetic
+	micro-benchmarks and real-world Hadoop applications. We then evaluate
+	and characterize the Hadoop framework using HiBench, in terms of
+	speed (i.e., job running time), throughput (i.e., the number of tasks
+	completed per minute), HDFS bandwidth, system resource (e.g., CPU,
+	memory and I/O) utilizations, and data access patterns.},
+  doi = {10.1109/ICDEW.2010.5452747},
+  keywords = {Java;data analysis;public domain software;HDFS bandwidth;Hadoop characterization;HiBench
+	benchmark suite;MapReduce based data analysis;data access patterns;open
+	source implementation;Bandwidth;Cloud computing;Data analysis;Explosives;Fault
+	tolerance;Large-scale systems;Open source software;Personal communication
+	networks;Resource management;Throughput}
+}
+
+@INPROCEEDINGS{,
+  author = {Li, Ang and Yang, Xiaowei and Kandula, Srikanth and Zhang, Ming},
+  title = {CloudCmp: shopping for a cloud made easy},
+  booktitle = {Proceedings of the 2nd USENIX conference on Hot topics in cloud computing},
+  year = {2010},
+  series = {HotCloud'10},
+  pages = {5--5},
+  address = {Berkeley, CA, USA},
+  publisher = {USENIX Association},
+  acmid = {1863108},
+  location = {Boston, MA},
+  numpages = {1},
+  url = {http://dl.acm.org/citation.cfm?id=1863103.1863108}
+}
+
+@INPROCEEDINGS{6424836,
+  author = {Sangroya, A. and Serrano, D. and Bouchenak, S.},
+  title = {MRBS: Benchmarking Dependability of MapReduce Systems},
+  booktitle = {Reliable Distributed Systems (SRDS), 2012 IEEE 31st Symposium on},
+  year = {2012},
+  pages = {21-30},
+  abstract = {MapReduce is a popular programming model for distributed data processing.
+	Extensive research has been conducted on the reliability of MapReduce,
+	ranging from adaptive and on-demand fault-tolerance to new fault-tolerance
+	models. However, realistic benchmarks are still missing to analyze
+	and compare the effectiveness of these proposals. To date, most MapReduce
+	fault-tolerance solutions have been evaluated using micro benchmarks
+	in an ad-hoc and overly simplified setting, which may not be representative
+	of real-world applications. This paper presents MRBS, a comprehensive
+	benchmark suite for evaluating the dependability of MapReduce systems.
+	MRBS includes five benchmarks covering several application domains
+	and a wide range of execution scenarios such as data-intensive vs.
+	compute-intensive applications, or batch applications vs. online
+	interactive applications. MRBS allows to inject various types of
+	faults at different rates. It also considers different application
+	workloads and data loads, and produces extensive reliability, availability
+	and performance statistics. We illustrate the use of MRBS with Hadoop
+	clusters running on Amazon EC2, and on a private cloud.},
+  doi = {10.1109/SRDS.2012.12},
+  issn = {1060-9857},
+  keywords = {cloud computing;software fault tolerance;software performance evaluation;Amazon
+	EC2;Hadoop clusters;MRBS;MapReduce reliability;MapReduce systems;adaptive
+	fault-tolerance model;application data loads;application workloads;batch
+	applications;benchmarking dependability;compute-intensive applications;data-intensive
+	applications;distributed data processing;micro benchmarks;ondemand
+	fault-tolerance model;online interactive applications;performance
+	statistics;private cloud;programming model;Benchmark testing;Cloud
+	computing;Computer crashes;Fault tolerance;Fault tolerant systems;Motion
+	pictures;Benchmark;Dependability;Hadoop;MapReduce}
+}
+
+@INPROCEEDINGS{,
+  author = {Silva, Marcio and Hines, Michael R. and Gallo, Diego and Liu, Qi
+	and Choi, Yoonseo and Da Silva, Dilma and Dong Ryu, Kyung},
+  title = {CloudBench: Experiment Automation for Cloud Environments},
+  year = {2013},
+  owner = {jpkjhlen},
+  timestamp = {2013.06.19}
+}
+
+@MISC{,
+  author = {Will Sobel and Shanti Subramanyam and Akara Sucharitakul and Jimmy
+	Nguyen and Hubert Wong and Arthur Klepchukov and Sheetal Patil and
+	O Fox and David Patterson},
+  title = {Cloudstone: Multi-platform, multi-language benchmark and measurement
+	tools for web 2.0},
+  year = {2008}
+}
+
