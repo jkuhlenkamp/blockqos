@@ -1,0 +1,36 @@
+package com.ibm.block.generator.fac.core.impl;
+
+import java.util.HashMap;
+
+import com.ibm.block.generator.fac.core.intf.EntityFactoryInterface;
+import com.ibm.block.model.core.enums.PropertyType;
+import com.ibm.block.model.core.impl.PlacementModel;
+
+public abstract class EntityFactory implements EntityFactoryInterface {
+
+	private PlacementModel pm;
+	private HashMap<Integer, PropertyType> ptypes;
+	
+	public EntityFactory( PlacementModel pm ) {
+		this.pm = pm;
+	}
+
+	@Override
+	public PlacementModel getPlacementModel() {
+		return pm;
+	}
+
+	@Override
+	public void addPtype(PropertyType type) {
+		ptypes.put(type.getId(), type);
+	}
+
+	@Override
+	public HashMap<Integer, PropertyType> getPtypes() {
+		@SuppressWarnings("unchecked")
+		HashMap<Integer, PropertyType> clone = (HashMap<Integer, 
+				PropertyType>) ptypes.clone();
+		return clone;
+	}
+	
+}

@@ -1,0 +1,296 @@
+package com.ibm.block.placement.var.impl;
+
+import java.util.HashMap;
+
+import choco.Choco;
+import choco.kernel.model.variables.integer.IntegerConstantVariable;
+import choco.kernel.model.variables.integer.IntegerVariable;
+import choco.kernel.model.variables.set.SetConstantVariable;
+import choco.kernel.model.variables.set.SetVariable;
+
+import com.ibm.block.model.app.impl.ResourceDemand;
+import com.ibm.block.model.app.impl.VEntity;
+import com.ibm.block.model.app.impl.VLink;
+import com.ibm.block.model.app.impl.VMachine;
+import com.ibm.block.model.app.impl.VVolume;
+import com.ibm.block.model.core.enums.PropertyType;
+import com.ibm.block.model.core.impl.Entity;
+import com.ibm.block.model.core.impl.PlacementModel;
+import com.ibm.block.model.dc.impl.PEntity;
+import com.ibm.block.model.dc.impl.PLink;
+import com.ibm.block.model.dc.impl.PMachine;
+import com.ibm.block.model.dc.impl.PStorage;
+import com.ibm.block.model.dc.impl.PSwitch;
+import com.ibm.block.model.dc.impl.ResourceOffer;
+import com.ibm.block.placement.var.intf.VariableModelInterface;
+
+public class VariableModel implements VariableModelInterface {
+
+	private HashMap<PMachine, IntegerConstantVariable> pm_loc_vars;
+	private HashMap<PStorage, IntegerConstantVariable> ps_loc_vars;
+	private HashMap<PSwitch, IntegerConstantVariable> pw_loc_vars;
+	private HashMap<PLink, IntegerConstantVariable> pl_loc_vars;
+	
+	private HashMap<PropertyType, IntegerConstantVariable> prop_vars;
+	
+	private HashMap<PEntity, SetConstantVariable> prop_offer_vars;
+	private HashMap<VEntity, SetConstantVariable> prop_demand_vars;
+	
+	private HashMap<ResourceOffer, IntegerConstantVariable> max_capacity_vars;
+	private HashMap<ResourceOffer, IntegerConstantVariable> pre_capacity_vars;
+	private HashMap<ResourceDemand, IntegerConstantVariable> pre_utilization_vars;
+	private HashMap<ResourceDemand, IntegerConstantVariable> amount_vars;
+	
+	private HashMap<VMachine, IntegerVariable> vm_loc_vars;
+	private HashMap<VVolume, IntegerVariable> vv_loc_vars;
+	private HashMap<VLink, SetVariable> vl_pw_loc_vars;
+	private HashMap<VLink, SetVariable> vl_pl_loc_vars;
+	
+	private HashMap<ResourceOffer, IntegerVariable> pot_agg_rd_vars;
+	private HashMap<ResourceOffer, HashMap<ResourceDemand, IntegerVariable>> pot_rd_vars;
+	
+	private SetConstantVariable getSetVar(Entity e) {
+		int[] ids = new int[e.getPropertyMap().size()];
+		Object[] properties = e.getPropertyMap().keySet().toArray();
+		for( int i = 0; i < properties.length; i++) {
+			ids[i] = (int) properties[i];
+		}
+		return new SetConstantVariable(new IntegerConstantVariable(ids.length +1), ids);
+	}
+	
+	VariableModel(PlacementModel m){
+		pm_loc_vars = new HashMap<>();
+		ps_loc_vars = new HashMap<>();
+		pw_loc_vars = new HashMap<>();
+		pl_loc_vars = new HashMap<>();
+		prop_vars = new HashMap<>();
+		prop_offer_vars = new HashMap<>();
+		prop_demand_vars = new HashMap<>();
+		max_capacity_vars = new HashMap<>();
+		pre_capacity_vars = new HashMap<>();
+		pre_utilization_vars = new HashMap<>();
+		amount_vars = new HashMap<>();
+		vm_loc_vars = new HashMap<>();
+		vv_loc_vars = new HashMap<>();
+		vl_pw_loc_vars = new HashMap<>();
+		vl_pl_loc_vars = new HashMap<>();
+		pot_agg_rd_vars = new HashMap<>();
+		pot_rd_vars = new HashMap<>();
+		
+		for(PMachine e : m.getPMachines().values()){
+			pm_loc_vars.put(e, new IntegerConstantVariable(e.getId()));
+			prop_offer_vars.put(e, getSetVar(e));
+		}
+		for(PStorage e : m.getPStorages().values()){
+			ps_loc_vars.put(e, new IntegerConstantVariable(e.getId()));
+			prop_offer_vars.put(e, getSetVar(e));
+		}
+		for(PSwitch e : m.getPSwitches().values()){
+			pw_loc_vars.put(e, new IntegerConstantVariable(e.getId()));
+			prop_offer_vars.put(e, getSetVar(e));
+		}
+		for(PLink e : m.getPLinks().values()){
+			pl_loc_vars.put(e, new IntegerConstantVariable(e.getId()));
+			prop_offer_vars.put(e, getSetVar(e));
+		}
+		for(PropertyType e : PropertyType.values()){
+			prop_vars.put(e, new IntegerConstantVariable(e.getId()));
+		}
+		
+		// VMachines
+		Object[] a = m.getPMachines().keySet().toArray();
+		int[] pms = new int[a.length];
+		for( int i = 0; i<a.length; i++ ) {
+			pms[i] = (int) a[i];
+		}
+		for( VMachine e : m.getVMachines().values() ){
+			vm_loc_vars.put(e, new IntegerVariable("loc_vm"+e.getId(), pms));
+			prop_demand_vars.put(e, getSetVar(e));
+		}
+		
+		// VVolumes
+		a = m.getPMachines().keySet().toArray();
+		int[] pss = new int[a.length];
+		for( int i = 0; i<a.length; i++ ) {
+			pss[i] = (int) a[i];
+		}
+		for( VVolume e : m.getVVolumes().values() ){
+			vv_loc_vars.put(e, new IntegerVariable("loc_vm"+e.getId(), pms));
+			prop_demand_vars.put(e, getSetVar(e));
+		}
+		
+		// VLinks
+		for( VLink e : m.getVLinks().values() ){
+			prop_demand_vars.put(e, getSetVar(e));
+			// 2Do locations (Set vars)
+		}
+		
+		// ResourceOffers
+		for(ResourceOffer e : m.getResourceOffers().values()) {
+			// 2Do
+		}
+		// Resource Demands
+		for(ResourceDemand e : m.getResourceDemands().values()) {
+			// 2Do
+		}
+	}
+	
+	@Override
+	public IntegerConstantVariable getLocationVar(PMachine pm) {
+		if( pm_loc_vars.containsKey(pm) ) {
+			return pm_loc_vars.get(pm);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"PMachine is not registered as a CHOCO variable!: " +pm);
+	}
+
+	@Override
+	public IntegerConstantVariable getPLocationVar(PStorage ps) {
+		if( ps_loc_vars.containsKey(ps) ) {
+			return ps_loc_vars.get(ps);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"PStorage is not registered as a CHOCO variable!: " +ps);
+	}
+
+	@Override
+	public IntegerConstantVariable getPLocationVar(PLink pl) {
+		if( pl_loc_vars.containsKey(pl) ) {
+			return pl_loc_vars.get(pl);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"PLink is not registered a CHOCO variable!: " +pl);
+	}
+
+	@Override
+	public IntegerConstantVariable getPLocationVar(PSwitch pw) {
+		if( pw_loc_vars.containsKey(pw) ) {
+			return pw_loc_vars.get(pw);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"PSwitch is not registered as a CHOCO variable!: " +pw);
+	}
+
+	@Override
+	public SetConstantVariable getPOfferVar(PEntity pe) {
+		if( prop_offer_vars.containsKey(pe) ) {
+			return prop_offer_vars.get(pe);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"PEntity is not registered a CHOCO set variable!: " +pe);
+	}
+
+	@Override
+	public SetConstantVariable getPDemandVar(VEntity ve) {
+		if( prop_demand_vars.containsKey(ve) ) {
+			return prop_demand_vars.get(ve);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"VEntity is not registered a CHOCO set variable!: " +ve);
+	}
+
+	@Override
+	public IntegerConstantVariable getMaxCapVar(ResourceOffer offer) {
+		if( max_capacity_vars.containsKey(offer) ) {
+			return max_capacity_vars.get(offer);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"ResourceOffer is not registered a CHOCO variable!: " +offer);
+	}
+
+	@Override
+	public IntegerConstantVariable getPreCapVar(ResourceOffer offer) {
+		if( pre_capacity_vars.containsKey(offer) ) {
+			return pre_capacity_vars.get(offer);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"ResourceOffer is not registered a CHOCO variable!: " +offer);
+	}
+
+	@Override
+	public IntegerConstantVariable getPreUtilVar(ResourceOffer offer) {
+		if( pre_utilization_vars.containsKey(offer) ) {
+			return pre_utilization_vars.get(offer);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"ResourceOffer is not registered a CHOCO variable!: " +offer);
+	}
+
+	@Override
+	public IntegerConstantVariable getAmountVar(ResourceDemand demand) {
+		if( amount_vars.containsKey(demand) ) {
+			return amount_vars.get(demand);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"ResourceDemand is not registered a CHOCO variable!: " +demand);
+	}
+
+	@Override
+	public IntegerConstantVariable getPropertyVar(PropertyType type) {
+		if( prop_vars.containsKey(type) ) {
+			return prop_vars.get(type);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"PropertyType is not registered a CHOCO variable!: " +type);
+	}
+
+	@Override
+	public IntegerVariable getLocationVar(VMachine vm) {
+		if( vm_loc_vars.containsKey(vm) ) {
+			return vm_loc_vars.get(vm);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"VMachine is not registered a CHOCO variable!: " +vm);
+	}
+
+	@Override
+	public IntegerVariable getLocationVar(VVolume vv) {
+		if( vv_loc_vars.containsKey(vv) ) {
+			return vv_loc_vars.get(vv);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"VVolume is not registered a CHOCO variable!: " +vv);
+	}
+
+	@Override
+	public SetVariable getPSwitchLocationVar(VLink vl) {
+		if( vl_pw_loc_vars.containsKey(vl) ) {
+			return vl_pw_loc_vars.get(vl);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"VLink is not registered a CHOCO variable!: " +vl);
+	}
+
+	@Override
+	public SetVariable getPLinkLocationVar(VLink vl) {
+		if( vl_pl_loc_vars.containsKey(vl) ) {
+			return vl_pl_loc_vars.get(vl);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"VLink is not registered a CHOCO variable!: " +vl);
+	}
+
+	@Override
+	public IntegerVariable getPotRdVar(ResourceOffer offer,
+			ResourceDemand demand) {
+		if( pot_rd_vars.containsKey(offer) ) {
+			if( pot_rd_vars.get(offer).containsKey(demand) ) {
+				return pot_rd_vars.get(offer).get(demand);
+			}
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"ResourceOffer and ResourceDemand are not registered" +
+				"as a CHOCO variable!: ResourceOffer:" +offer+ 
+				", ResourceDemand:" +demand);
+	}
+
+	@Override
+	public IntegerVariable getAggPotRdVar(ResourceOffer offer) {
+		if( pot_agg_rd_vars.containsKey(offer) ) {
+			return pot_agg_rd_vars.get(offer);
+		}
+		throw new IllegalArgumentException("Error: The provided " +
+				"ResourceOffer is not registered a CHOCO variable!: " +offer);
+	}
+
+}

@@ -1,0 +1,11 @@
+package com.ibm.block.generator.intf;
+
+import java.util.ArrayList;
+import com.ibm.block.generator.impl.ROfferFactory;
+
+public interface PFactoryInterface extends EntityFactoryInterface {
+
+	public ArrayList<ROfferFactory> getROfferFactories();
+	public void addROfferFactory(ROfferFactory factory);
+	
+}

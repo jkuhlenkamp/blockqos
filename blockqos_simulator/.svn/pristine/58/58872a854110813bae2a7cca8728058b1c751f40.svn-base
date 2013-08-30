@@ -1,0 +1,76 @@
+package com.ibm.block.simulator.impl;
+
+import choco.cp.model.CPModel;
+import choco.cp.solver.CPSolver;
+import choco.kernel.model.constraints.Constraint;
+import choco.kernel.model.variables.integer.IntegerVariable;
+
+import com.ibm.block.generator.impl.app.SmallThreeTierAppGen;
+import com.ibm.block.generator.impl.dc.SmallTreeNetworkDCGen;
+import com.ibm.block.model.core.impl.PlacementModel;
+import com.ibm.block.placement.constraint.impl.ConstraintModel;
+import com.ibm.block.placement.constraint.impl.ConstraintModelGen;
+import com.ibm.block.placement.var.impl.VariableModel;
+
+public class SimulationCoordinator {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		PlacementModel pmodel = new PlacementModel();
+		pmodel = new SmallTreeNetworkDCGen(pmodel).build();
+		pmodel = new SmallThreeTierAppGen(pmodel).build();
+		
+		VariableModel vmodel = new VariableModel(pmodel);
+		ConstraintModel cmodel = new ConstraintModelGen(pmodel, vmodel).build();
+		
+		// Build the Choco constraint model
+		CPModel m = new CPModel();
+		
+		for( IntegerVariable v : vmodel.getVmLocationVarMap().values() ) {
+			m.addVariable(v);
+		}
+		for( IntegerVariable v : vmodel.getVvLocationVarMap().values() ) {
+			m.addVariable(v);
+		}
+		
+		for( Constraint c : cmodel.getAllConstraints() ) {
+			m.addConstraint(c);
+		}
+	
+		// Build the solver
+		CPSolver s = new CPSolver();
+		// Read the model
+		s.read(m);
+		
+		// Solve the model
+		s.solve();
+		
+		System.out.println(vmodel.pretty());
+		
+		int solutionCount = 0;
+		boolean isCorrectSolution = true; // [2Do: check for correct solutions]
+		if( s.isFeasible() ) {
+			do {
+				solutionCount++;
+				// Print the solution
+				System.out.println("SOLUTION: " +solutionCount);
+				System.out.print("VM locations: ");
+				for ( IntegerVariable v : vmodel.getVmLocationVarMap().values() ) {
+					System.out.print(s.getVar(v));
+				}
+				System.out.println("");
+				System.out.print("VV locations: ");
+				for ( IntegerVariable v : vmodel.getVvLocationVarMap().values() ) {
+					System.out.print(s.getVar(v));
+				}
+				System.out.println("");
+			} while (isCorrectSolution && s.nextSolution());
+		}
+		else{
+			System.out.println( "Placement problem is not feasable." );
+		}
+	}
+
+}

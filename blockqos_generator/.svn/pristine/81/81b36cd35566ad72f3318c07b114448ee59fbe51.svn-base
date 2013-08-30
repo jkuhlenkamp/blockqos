@@ -1,0 +1,9 @@
+package com.ibm.block.generator.intf;
+
+import com.ibm.block.model.dc.impl.PMachine;
+
+public interface PMFactoryInterface {
+
+	public PMachine create();
+	
+}

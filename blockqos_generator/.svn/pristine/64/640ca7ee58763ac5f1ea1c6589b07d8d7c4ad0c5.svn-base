@@ -1,0 +1,8 @@
+package com.ibm.block.generator.impl;
+
+import com.ibm.block.generator.intf.GeneratorInterface;
+
+public abstract class Generator implements GeneratorInterface {
+
+
+}

@@ -1,0 +1,29 @@
+package com.ibm.block.generator.impl;
+
+import com.ibm.block.model.core.impl.PlacementModel;
+
+public class TreeNetworkDC extends Generator {
+
+	private PlacementModel model;
+	
+	private int treeDepth;
+	private int fanout1;
+	private int fanout2;
+	private int fanout3;
+	private int fanout4;
+	
+	public TreeNetworkDC() {
+		treeDepth = 1;
+		fanout1 = 2;
+		fanout2 = 2;
+		fanout3 = 2;
+		fanout4 = 2;
+	}
+	
+	@Override
+	public PlacementModel build() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

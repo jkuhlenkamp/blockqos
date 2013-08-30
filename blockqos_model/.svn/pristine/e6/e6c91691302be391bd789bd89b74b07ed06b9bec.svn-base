@@ -1,0 +1,14 @@
+package com.ibm.block.model.core.intf;
+
+public interface EntityInterface {
+
+	// Getters
+	public Integer getId();
+	public String getName();
+	
+	// Setters
+	public void setName(String name);
+	
+	// Util
+	public abstract String pretty();
+}

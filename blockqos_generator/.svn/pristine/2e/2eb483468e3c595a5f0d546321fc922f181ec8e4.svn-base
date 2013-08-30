@@ -1,0 +1,27 @@
+package com.ibm.block.generator.impl;
+
+import java.util.ArrayList;
+import com.ibm.block.generator.intf.PFactoryInterface;
+import com.ibm.block.model.core.impl.PlacementModel;
+
+public class PFactory extends EntityFactory implements PFactoryInterface {
+
+	private ArrayList<ROfferFactory> rfactories;
+	
+	public PFactory(PlacementModel pm) {
+		super(pm);
+	}
+
+	@Override
+	public ArrayList<ROfferFactory> getROfferFactories() {
+		@SuppressWarnings("unchecked")
+		ArrayList<ROfferFactory> clone = (ArrayList<ROfferFactory>) rfactories.clone();
+		return clone;
+	}
+
+	@Override
+	public void addROfferFactory(ROfferFactory factory) {
+		rfactories.add(factory);
+	}
+
+}

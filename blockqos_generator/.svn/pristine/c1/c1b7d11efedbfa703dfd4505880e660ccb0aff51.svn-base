@@ -1,0 +1,10 @@
+package com.ibm.block.generator.intf;
+
+import com.ibm.block.model.dc.impl.ResourceOffer;
+
+public interface ROfferFactoryInterface extends ResourceFactoryInterface{
+
+	public ResourceOffer create();
+	public Integer getCapacity();
+	
+}

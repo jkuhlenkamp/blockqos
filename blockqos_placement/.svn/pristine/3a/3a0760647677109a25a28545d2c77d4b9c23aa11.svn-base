@@ -1,0 +1,54 @@
+package com.ibm.block.placement.var.intf;
+
+import com.ibm.block.model.app.impl.ResourceDemand;
+import com.ibm.block.model.app.impl.VEntity;
+import com.ibm.block.model.app.impl.VLink;
+import com.ibm.block.model.app.impl.VMachine;
+import com.ibm.block.model.app.impl.VVolume;
+import com.ibm.block.model.core.enums.PropertyType;
+import com.ibm.block.model.dc.impl.PEntity;
+import com.ibm.block.model.dc.impl.PLink;
+import com.ibm.block.model.dc.impl.PMachine;
+import com.ibm.block.model.dc.impl.PStorage;
+import com.ibm.block.model.dc.impl.PSwitch;
+import com.ibm.block.model.dc.impl.ResourceOffer;
+
+import choco.kernel.model.variables.integer.IntegerConstantVariable;
+import choco.kernel.model.variables.integer.IntegerVariable;
+import choco.kernel.model.variables.set.SetConstantVariable;
+import choco.kernel.model.variables.set.SetVariable;
+
+public interface VariableModelInterface {
+	
+	// Objective function variables
+	
+	// Placement constants
+	public IntegerConstantVariable getLocationVar(PMachine pm);
+	public IntegerConstantVariable getPLocationVar(PStorage ps);
+	public IntegerConstantVariable getPLocationVar(PLink pl);
+	public IntegerConstantVariable getPLocationVar(PSwitch pw);
+	
+	public SetConstantVariable getPOfferVar(PEntity pe);
+	public SetConstantVariable getPDemandVar(VEntity ve);
+	
+	public IntegerConstantVariable getMaxCapVar(ResourceOffer offer);
+	public IntegerConstantVariable getPreCapVar(ResourceOffer offer);
+	public IntegerConstantVariable getPreUtilVar(ResourceOffer offer);
+	
+	public IntegerConstantVariable getAmountVar(ResourceDemand demand);
+	public IntegerConstantVariable getPropertyVar(PropertyType type);
+	
+	// Placement variables
+	public IntegerVariable getLocationVar(VMachine vm);
+	public IntegerVariable getLocationVar(VVolume vv);
+	public SetVariable getPSwitchLocationVar(VLink vl);
+	public SetVariable getPLinkLocationVar(VLink vl);
+	
+	public IntegerVariable getPotRdVar(ResourceOffer offer, ResourceDemand demand);
+	public IntegerVariable getAggPotRdVar(ResourceOffer offer);
+	
+	// Group placement variables
+	//public IntegerVariable[] getPotRdVarsForOffer(Integer roId);
+	//public ArrayList<IntegerVariable> getPotRdVarsForDemand(Integer rdId);
+
+}

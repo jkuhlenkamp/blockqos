@@ -1,0 +1,30 @@
+package com.ibm.block.model.core.impl;
+
+import com.ibm.block.model.core.intf.EntityInterface;
+import com.ibm.block.model.util.impl.Id;
+
+public abstract class Entity implements EntityInterface {
+
+	private int id;
+	private String name;
+	
+	public Entity(String name) {
+		id = Id.getInstance().getId();
+		this.name = name+"_"+id;
+	}
+	
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+}

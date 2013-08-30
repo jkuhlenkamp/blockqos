@@ -1,0 +1,13 @@
+package com.ibm.block.generator.intf;
+
+import java.util.HashMap;
+
+import com.ibm.block.model.core.enums.PropertyType;
+import com.ibm.block.model.core.impl.PlacementModel;
+
+public interface EntityFactoryInterface {
+
+	public PlacementModel getPlacementModel();
+	public void addPtype(PropertyType type);
+	public HashMap<Integer, PropertyType> getPtypes();
+}

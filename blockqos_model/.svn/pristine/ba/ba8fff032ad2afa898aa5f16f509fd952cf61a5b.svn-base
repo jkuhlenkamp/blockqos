@@ -1,0 +1,43 @@
+package com.ibm.block.model.app.impl;
+
+import com.ibm.block.model.app.intf.VVolumeInterface;
+
+public class VVolume extends VEntity implements VVolumeInterface {
+
+	private VLink link;
+	private static String namePrefix = "vv";
+	
+	public VVolume(String name) {
+		super(namePrefix);
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public String pretty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VLink getVLink() {
+		return link;
+	}
+
+	@Override
+	public VMachine getVMachine() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setVMachine(VMachine vm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean addVLink(VLink vl) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

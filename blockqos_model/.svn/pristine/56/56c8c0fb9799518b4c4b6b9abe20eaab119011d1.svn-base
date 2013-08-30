@@ -1,0 +1,173 @@
+package com.ibm.block.model.dc.impl;
+
+import java.security.InvalidParameterException;
+import java.util.HashMap;
+
+import com.ibm.block.model.core.enums.PropertyType;
+import com.ibm.block.model.core.impl.Resource;
+import com.ibm.block.model.dc.intf.PStorageInterface;
+
+public class PStorage extends PEntity implements PStorageInterface {
+
+	private static String namePrefix = "ps";
+	private PMachine connectedPm;						// PStorage can only be directly connected to a single PMachine
+	private PSwitch connectedPw;						// PStorage can only be connected to a single PSwitch	
+	private HashMap<Integer, PLink> connectedPls;
+	
+	
+	public PStorage() {
+		super(namePrefix);
+		connectedPm = null;
+		connectedPw = null;
+		connectedPls = new HashMap<>();
+	}
+
+	@Override
+	public String pretty() {
+		String s = super.getName()+"[";
+		//s += "class:" +super.getClass()+ ", ";
+		//s += "id:" +super.getId()+ ", ";
+		//s += "name:" +super.getName()+ ", ";
+		s += "pls:[";
+		for( PLink pl : connectedPls.values() ) {
+			s += pl.pretty()+ ", ";
+		}
+		s += "]";
+		s += "resources:[";
+		for( Resource r : getResourceMap().values() ) {
+			s += r.pretty()+ ", ";
+		}
+		s += "]";
+		s += "properties:[";
+		for( PropertyType p : getPropertyMap().values() ) {
+			s += p+ ", ";
+		}
+		s += "]";
+		s += "]";
+		return s;
+	}
+
+	@Override
+	public PSwitch getConnectedPSwitch() {
+		return connectedPw;
+	}
+
+	@Override
+	public PMachine getConnectedPMachine() {
+		return connectedPm;
+	}
+
+	@Override
+	public PLink getSwitchPLink() {
+		return connectedPls.get( connectedPw.getId() );
+	}
+
+	@Override
+	public PLink getPMachineLink() {
+		return connectedPls.get( connectedPm.getId() );
+	}
+
+	@Override
+	public HashMap<Integer, PLink> getPLinksOnPath(PMachine target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<Integer, PLink> getPLinksOnPath(PStorage target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<Integer, PSwitch> getPSwitchesOnPath(PMachine target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<Integer, PSwitch> getPSwitchesOnPath(PStorage target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addPLink(PLink pl) {
+		if( pl.hasEnd(this) ) {					// Check if this PStorage is registered @PLink
+			PEntity pe = pl.getOtherEnd(this);
+			if( pe != null ) {					// Check for PEntity @end2 of the PLink
+				if( pe instanceof PSwitch ) {	// Check if end2 is PSwitch
+					connectedPw = (PSwitch) pe;
+					connectedPls.put(pe.getId(), pl);
+				}
+				else {
+					if( pe instanceof PMachine ) {
+						connectedPm = (PMachine) pe;
+						connectedPls.put(pe.getId(), pl);
+					}
+					else {
+						throw new InvalidParameterException("Error: The PLink object to connect " +
+								"has no registered connected PMachine or PSwitch on the other end! " +
+								"PLink:" +pl.pretty()+ ", this:" +pretty()+ "End2:" +pe.pretty());
+					}
+				}
+			}
+			else {
+				throw new InvalidParameterException("Error: The PLink object to connect " +
+						"has no registered PEntity on the other end! " +
+						"PLink:" +pl.pretty()+ ", this:" +pretty() );
+			}
+		}
+		else {
+			throw new InvalidParameterException("Error: The PLink object to connect " +
+					"has no reference to this PStorage!" +
+					"PLink:" +pl.pretty()+ ", this:" +pretty() );
+		}
+		return false;
+	}
+
+	@Override
+	public boolean hasPSwitch() {
+		if( connectedPw != null ) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean hasPMachine() {
+		if( connectedPm != null ) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isConnectedTo(PMachine pm) {
+		if( hasPMachine() && connectedPm.equals(pm) ) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean isConnectedTo(PSwitch pw) {
+		if( hasPSwitch() && connectedPw.equals(pw) ) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean hasPathTo(PStorage target) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasPathTo(PMachine target) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

@@ -1,0 +1,23 @@
+package com.ibm.block.generator.impl;
+
+import com.ibm.block.generator.intf.PMFactoryInterface;
+import com.ibm.block.model.core.impl.PlacementModel;
+import com.ibm.block.model.dc.impl.PMachine;
+
+public abstract class PMFactory extends PFactory implements PMFactoryInterface {
+
+	public PMFactory(PlacementModel pm) {
+		super(pm);
+	}
+
+	@Override
+	public PMachine create() {
+		PMachine product = new PMachine();
+		for( ROfferFactory f : super.getROfferFactories() ) {
+			product.addResource(f.create());
+		}
+		super.getPlacementModel().addEntity(product);
+		return product;
+	}
+
+}

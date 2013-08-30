@@ -1,0 +1,14 @@
+package com.ibm.block.model.dc.intf;
+
+import com.ibm.block.model.core.intf.ResourceInterface;
+
+public interface ResourceOfferInterface extends ResourceInterface {
+
+	// Getters
+	public Integer getCapacity();
+	public Integer getUsage();
+	public Integer getUtilization();
+	
+	// Setters
+	public void setUsage(Integer usage);
+}

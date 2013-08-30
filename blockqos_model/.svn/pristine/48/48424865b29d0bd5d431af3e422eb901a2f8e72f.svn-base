@@ -1,0 +1,231 @@
+package com.ibm.block.model.dc.impl;
+
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.ibm.block.model.core.enums.PropertyType;
+import com.ibm.block.model.core.impl.Resource;
+import com.ibm.block.model.dc.intf.PMachineInterface;
+
+public class PMachine extends PEntity implements PMachineInterface {
+
+	private static String namePrefix = "pm";
+	private PSwitch connectedPw;
+	private HashMap<Integer, PStorage> connectedPss;
+	private HashMap<Integer, PLink> connectedPls;
+	
+	public PMachine() {
+		super(namePrefix);
+		connectedPw = null;
+		connectedPls = new HashMap<>();
+		connectedPss = new HashMap<>();
+	}
+	
+	@Override
+	public String pretty() {
+		String s = super.getName()+"[";
+		//s += "class:" +super.getClass()+ ", ";
+		//s += "id:" +super.getId()+ ", ";
+		//s += "name:" +super.getName()+ ", ";
+		s += "pls:[";
+		for( PLink pl : connectedPls.values() ) {
+			s += pl.pretty()+ ", ";
+		}
+		s += "]";
+		s += "resources:[";
+		for( Resource r : getResourceMap().values() ) {
+			s += r.pretty()+ ", ";
+		}
+		s += "]";
+		s += "properties:[";
+		for( PropertyType p : getPropertyMap().values() ) {
+			s += p+ ", ";
+		}
+		s += "]";
+		s += "]";
+		return s;
+	}
+
+	@Override
+	public PSwitch getConnectedPSwitch() {
+		return connectedPw;
+	}
+
+	@Override
+	public HashMap<Integer, PStorage> getConnectedPStorages() {
+		@SuppressWarnings("unchecked")
+		HashMap<Integer, PStorage> clone = (HashMap<Integer, 
+				PStorage>) connectedPss.clone();
+		return clone;
+	}
+
+	@Override
+	public PLink getSwitchPLink() {
+		if( connectedPls.containsKey(connectedPw.getId()) ) {
+			return connectedPls.get(connectedPw.getId());
+		}
+		else {
+			throw new IllegalArgumentException("Error: No PSwitch " +
+					"is connected by a PLink! this:" + pretty() );
+		}
+	}
+
+	@Override
+	public PLink getPLink(PStorage ps) {
+		if( connectedPls.containsKey(ps.getId()) ) {
+			return connectedPls.get(ps.getId());
+		}
+		else {
+			throw new IllegalArgumentException("Error: The provided " +
+					"PStorage is not connected by a PLink! this:" +
+					pretty()+ ", PStorage:" +ps.pretty());
+		}
+	}
+
+	@Override
+	public HashMap<Integer, PLink> getPLinksOnPath(PMachine pm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<Integer, PLink> getPLinksOnPath(PStorage pm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<Integer, PSwitch> getPswitchesOnPath(PMachine target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<Integer, PSwitch> getPswitchesOnPath(PStorage target) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addPLink(PLink pl) {
+		
+		if( pl.hasEnd(this) ) {					// Check if this PMachine is registered @PLink
+			PEntity pe = pl.getOtherEnd(this);
+			if( pe != null ) {					// Check for PEntity @end2 of the PLink
+				if( pe instanceof PSwitch ) {	// Check if end2 is PSwitch
+					connectedPw = (PSwitch) pe;
+					connectedPls.put(pe.getId(), pl);
+				}
+				else {
+					if( pe instanceof PStorage ) {
+						connectedPss.put(pe.getId(), (PStorage) pe);
+						connectedPls.put(pe.getId(), pl);
+					}
+					else {
+						throw new InvalidParameterException("Error: The PLink object to connect " +
+								"has no registered connected PStorage or PSwitch on the other end! " +
+								"PLink:" +pl.pretty()+ ", this:" +pretty()+ "End2:" +pe.pretty());
+					}
+				}
+			}
+			else {
+				throw new InvalidParameterException("Error: The PLink object to connect " +
+						"has no registered PEntity on the other end! " +
+						"PLink:" +pl.pretty()+ ", this:" +pretty() );
+			}
+		}
+		else {
+			throw new InvalidParameterException("Error: The PLink object to connect " +
+					"has no reference to this PMachine!" +
+					"PLink:" +pl.pretty()+ ", this:" +pretty() );
+		}
+		return false;
+	}
+
+	/**
+	 * Returns true if the PMachine has a PSwitch and the PSwitch is connected
+	 * via a PLink.
+	 * 
+	 * @see com.ibm.block.model.dc.intf.PMachineInterface#hasSwitch()
+	 */
+	@Override
+	public boolean hasSwitch() {
+		if( connectedPw != null && connectedPls.containsKey(
+				connectedPw.getId()) && connectedPls.get(connectedPw.getId()
+				).getOtherEnd(this).equals(connectedPw) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Returns true if the provided PStorage is connected to the PMachine via
+	 * a single PLink. Represents directly attached PStorage to a PMachine.
+	 * 
+	 * @see com.ibm.block.model.dc.intf.PMachineInterface#isConnectedTo(com.ibm.block.model.dc.impl.PStorage)
+	 */
+	@Override
+	public boolean isConnectedTo(PStorage ps) {
+		if( connectedPss.containsKey(ps.getId()) && 
+				connectedPss.containsValue(ps) &&
+				connectedPls.get(ps.getId()).getOtherEnd(this).equals(ps)) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean recPathCheck(PEntity target, PSwitch sw, 
+			ArrayList<PSwitch> visited) {
+		
+		boolean isOnPath = false;
+		
+		if( target instanceof PMachine ) {
+			if( sw.isConnectedTo((PMachine) target) ) {
+				isOnPath = true;
+			}
+		}
+		if( target instanceof PStorage ) {
+			if(sw.isConnectedTo((PStorage) target) ) {
+				isOnPath = true;
+			}
+		}
+		
+		visited.add(sw);
+		ArrayList<PSwitch> candidates = new ArrayList<>();
+		candidates.addAll( sw.getConnectedPSwitches().values() );
+		for( int i = 0; isOnPath == false && i < candidates.size(); i++ ) {
+			if( !visited.contains(candidates.get(i)) ) {
+				isOnPath = recPathCheck(target, candidates.get(i), visited);
+			}
+		}
+		return isOnPath;
+	}
+	
+	@Override
+	public boolean hasPathTo(PStorage target) {
+		if( isConnectedTo(target) ) {				// Check if target is local Storage
+			return true;
+		}
+		if( hasSwitch() && connectedPw.isConnectedTo(target) ) {
+			return true;
+		}
+		ArrayList<PSwitch> visited = new ArrayList<>();
+		visited.add(connectedPw);
+		return recPathCheck(target, connectedPw, visited);
+	}
+
+	@Override
+	public boolean hasPathTo(PMachine target) {
+		if ( hasSwitch() ) {
+			if( connectedPw.isConnectedTo(target) ) {
+				return true;
+			}
+			ArrayList<PSwitch> visited = new ArrayList<>();
+			visited.add(connectedPw);
+			return recPathCheck(target, connectedPw, visited);
+		}
+		return false;
+	}
+
+}

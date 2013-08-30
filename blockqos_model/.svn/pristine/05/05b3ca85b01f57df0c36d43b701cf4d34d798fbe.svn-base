@@ -1,0 +1,10 @@
+package com.ibm.block.model.app.intf;
+
+import com.ibm.block.model.core.intf.ResourceInterface;
+
+public interface ResourceDemandInterface extends ResourceInterface {
+
+	// Getters
+	public Integer getAmount();
+	
+}
