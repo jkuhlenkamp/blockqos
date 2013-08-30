@@ -1,0 +1,773 @@
+
+%% bare_conf.tex
+%% V1.3
+%% 2007/01/11
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%*************************************************************************
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+% Note that the a4paper option is mainly intended so that authors in
+% countries using A4 can easily print to A4 and see how their papers will
+% look in print - the typesetting of the document will not typically be
+% affected with changes in paper size (but the bottom and side margins will).
+% Use the testflow package mentioned above to verify correct handling of
+% both paper sizes by the user's LaTeX system.
+%
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
+\documentclass[conference]{IEEEtran}
+% Add the compsoc option for Computer Society conferences.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at: 
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
+% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+%\newtheorem{theorem}{Theorem}
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{BlockQoS: Storage-aware placement of distributed deployments in data centers.}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{
+%\IEEEauthorblockN{Joern Kuhlenkamp}
+%\IEEEauthorblockA{Karlsruhe Institute of Technology\\
+%Email: joern.kuhlenkamp@kit.edu}
+\IEEEauthorblockN{Bart Simpson}
+\IEEEauthorblockA{Twentieth Century Fox\\
+Springfield, USA\\
+Email: homer@thesimpsons.com}
+\and
+\IEEEauthorblockN{Homer Simpson}
+\IEEEauthorblockA{Twentieth Century Fox\\
+Springfield, USA\\
+Email: homer@thesimpsons.com}
+\and
+\IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+\IEEEauthorblockA{Starfleet Academy\\
+San Francisco, California 96678-2391\\
+Telephone: (800) 555--1212\\
+Fax: (888) 555--1212}}
+
+
+% make the title area
+\maketitle
+
+\begin{abstract}
+[abstract]
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+
+\section{Cloud Admission}
+\subsection{Example}
+
+The provisioning of topologies from Infrastructure service with unknown QoS result in deployments that prevent or conflict with matching application requirements.
+\begin{itemize}
+	\item Performance requirements are not met: heterogeneous performance characteristics for different VM or performance degradation for single VM for synchronous hypervisor replication (backup)
+	\item Durability: Replicas are stored on the same physical entity. VMs on different physical machines run process that store redundant data for durability. Virtual volumes are placed on the same physical storage device.
+	\item Availability: Shared network
+\end{itemize}
+
+\subsection{Cloud admission state of the art}
+
+Cloud admission vs. reallocation and migration.
+\begin{itemize}
+\item Admission: Goals is low rejection rate, fast placement.
+\item Migration/reallocation: Goal is convergence against load balanced state under minimum migration costs. Reallocation is migration under available service.
+\end{itemize}
+
+\subsection{Cloud admission development methodology}
+
+Roles
+\begin{itemize}
+	\item Virtual Entity Engineer: Builds abstraction of data center that results in data center model. Data center model abstracts a data center into physical entities with resources and resource capacities and deployment options for virtual entities. Identifies resource feature interactions.
+	\item Topology Engineer: D
+	\item Topology requester:
+\end{itemize}
+%
+%\subsection{Modeling Methodology}
+%\begin{itemize}
+%	\item Data center model: Physical entities, capacity, virtual entities, valid placements of virtual entities	
+%	\item Topology model: Demand in functional and quality -> Modeling with heuristics
+%\end{itemize}
+
+\section{Data Center and Application Model}
+
+\subsection{Data Center Model}
+
+A \textit{data center model} (DCM) represents an abstraction of a data center (DC). A DCM describes a set of \textit{physical entities} and their communication capabilities. \textit{Virtual entities} are assigned (placed) to physical entities during \textit{placement}, \textit{migration} and \textit{reallocation}.
+A graphical representation of a DCM is a non-directional graph $G^{d}=(V^{d},E^{d})$ with verticies $\{ v^{d}_i \mid v^{d}_i \in V^{d} \wedge 1 \leq i \leq \left\vert V^{d} \right\vert \}$ and edges $\{ e^{d}_i \mid e^{d}_i \in E^{d} \wedge 1 \leq i \leq \left\vert E^{d} \right\vert \}$ with $V^{d}$ denoting the set of physical entities and $E^{d}$ denoting the set of \textit{communication capabilities} between physical entities.
+We use the following notations to reference edges: $e^{d}=(v^{d}_i, v^{d}_j)$.
+We use the notation $pel_i$ to refer to an element of the unified set of verticies and edges $\{ pel_i \mid pel_i \in V^{d} \cup E^{d} \wedge 1 \leq i \leq \left\vert V^{d} \cup E^{d} \right\vert \}$.
+
+\begin{equation}
+G^{d}=(V^{d},E^{d})
+\end{equation}
+\begin{equation}
+\{ v^{d}_i \mid v^{d}_i \in V^{d} \wedge 1 \leq i \leq \left\vert V^{d} \right\vert \}
+\end{equation}
+\begin{equation}
+\{ e^{d}_i \mid e^{d}_i \in E^{d} \wedge 1 \leq i \leq \left\vert E^{d} \right\vert \}
+\end{equation}
+\begin{equation}
+e^{d}=(v^{d}_i, v^{d}_j)
+\end{equation}
+\begin{equation}
+\{ pel_i \mid pel_i \in V^{d} \cup E^{d} \wedge 1 \leq i \leq \left\vert V^{d} \cup E^{d} \right\vert \}
+\end{equation}
+
+
+
+
+\subsubsection{Physical Entities}
+%We distinguish between four sets of physical entities in $V^{dc}$: (i) \textit{physical machines} (PMs), (ii) \textit{physical storage locations} (PSs), (iii) \textit{physical switches} (PWs) and (iv) \textit{physical network links} (PLs). 
+We distinguish between three sets of physical entities: (i) \textit{physical machines} (PMs), (ii) \textit{physical storage locations} (PSs) and (iii) \textit{physical switches} (PWs). 
+We refer to a \textit{physical machine} by $pm_i \in PM$ with $PM$ denoting the set of physical machines and to a \textit{physical storage location} by $ps_i \in PS$ with $PS$ denoting the set of physical storage locations. A physical storage location can represent a single storage device, e.g., HDD or SSD, or a managed storage appliance of multiple storage devices. 
+We refer to a \textit{physical switch} (switch) by $ pw_i \in PW$ with $PW$ denoting the set of switches in the DC.
+\begin{equation}
+V^{d}=PM \cup PS \cup PW
+\end{equation}
+\begin{equation}
+PM = \{ pm_i \mid 1 \leq i \leq \left\vert PM \right\vert \}
+\end{equation}
+\begin{equation}
+PS = \{ ps_i \mid 1 \leq i \leq \left\vert PS \right\vert \}
+\end{equation}
+\begin{equation}
+PW = \{ pw_i \mid 1 \leq i \leq \left\vert PW \right\vert \}
+\end{equation}
+
+\subsubsection{Physical network}
+
+\textit{Physical links} represent the physical network that connects physical entities. We refer to a physical link that connects two physical entities by a communication capability.
+%\begin{equation}
+%\forall (v^{dc}_i, v^{dc}_j) \in E^{dc} : v^{dc}_i \in PL \rightarrow v^{dc}_j \notin PL
+%\end{equation}
+If a physical link connects a PM and a PS, the PS represents a disk that is locally attached to a PM. We assume that two PMs or two PSs connect to each other through a physical switch.
+%\begin{equation}
+%\forall (v^{dc}_i, v^{dc}_j) \in E^{dc} : v^{dc}_i \in PS \rightarrow \not\exists (v^{dc}_j, v^{dc}_k \in PS) 
+%\end{equation}
+\begin{equation}
+( (v^{d}_i, v^{d}_j) \mid v^{d}_i \in PM ) \rightarrow v^{d}_j \notin PM 
+\end{equation}
+\begin{equation}
+( (v^{d}_i, v^{d}_j) \mid v^{d}_i \in PS ) \rightarrow v^{d}_j \notin PS 
+\end{equation}
+We refer to a sequence of verticies in which all elements besides the first vertice $v^{d}_i$ and the last verticie $v^{d}_{j}$ are PWs and two following elements are connected through physical links as \textit{communication path} $CP_{v^{d}_i, v^{d}_j}$.
+\begin{multline}
+CP_{v^{d}_i, v^{d}_j} = ( (a_k)^l_{k=1} \mid 2 \leq l \leq \left\vert PW \right\vert + 2 \wedge \\ \{ a_1=v^{d}_i, a_l=v^{d}_j \} \subseteq V^{d} \wedge \\ \{(a_k)^{l}_{k=1}\} \cap \{a_1, a_l\} \subseteq SW \wedge \\ \{( a_m, a_{m+1} ) \in E^{d} \mid 1 \leq m \leq l-1 \} )
+\end{multline}
+%\begin{multline}
+%CP_{v^{d}_i, v^{d}_j} = ( (a_k)^l_{k=1} \mid \{ a_1=v^{d}_i, a_2=v^{d}_j \} \subseteq V^{d} \wedge \\ \{ (a_k)^{l-1}_{k=2} \} \subseteq SW \wedge \\ \{( a_m, a_{m+1} ) \in E^{d} \mid 1 \leq m \leq l-1 \} )
+%\end{multline}
+
+%We refer to the two physical entities $v^{dc}_i$ and $v^{dc}_{n+1}$ of a communication path $CP(v^{dc}_i, v^{dc}_{n+1})$ as $connected$.
+%We refer to a sequence of verticies as \textit{communication path} $CP(v^{dc}_i, v^{dc}_{n+1}) \in PCP$ with denoting the set of communication paths if all verticies of the sequence except the first vertice $v^{dc}_i$ and the last verticie $v^{dc}_{n+1}$ are PWs.
+%\begin{equation}
+%PCP = \{ (v^{dc}_i, v^{dc}_{i+1},...,v^{dc}_{n}, v^{dc}_{n+1}) \mid \{ v^{dc}_{k} \in PW \mid i+1 \leq k \leq n \} \}   
+%\end{equation}
+%We refer to the two physical entities $v^{dc}_i$ and $v^{dc}_{n+1}$ of a communication path $CP(v^{dc}_i, v^{dc}_{n+1})$ as $connected$.
+
+\subsubsection{Resource and property offers}
+
+Physical entities and physical links offer resources to and determine properties of virtual entities. Resources are limited by a capacity and consumed by usage while properties are not. Virtual entities consume resources of the physical entities they are placed on. A \textit{resource offer} has a resource type $rt_i \in RT$ with $RT$ denoting the set of resource types. 
+\begin{equation}
+RT = \{ rt_i \mid 1 \leq i \leq \left\vert RT \right\vert \}
+\end{equation}
+We refer to a resource offer $ro_{pel_i}(rt_j) \in RO_{pel_i}$ by a resource type $rt_j$ with $pel_i$ denoting a physical entity or link and $RO_{pel_i}$ denoting the set of resources offers of $pel_i$.
+\begin{equation}
+RO_{pel_i} = \{ ro_{pel_i}(rt_j) | 1 \leq j \leq \left\vert RO_{pel_i} \right\vert \}
+\end{equation}
+A resource offer has a capacity $c(ro_{pel_i}(rt_j))$. Examples of resources offers and metrics are:
+\begin{itemize}
+	\item PM: number of cores, memory in GB
+	\item PS: storage size in GB, random/sequential throughput in IOPS/Mb per s
+	\item PL: bandwidth in Mb
+	\item PS: bandwidth in Mb
+\end{itemize} 
+%Kalman Filters Dynamics
+
+A \textit{property offer} characterizes a physical entity. Similar to a resource offer, a property offer has a property type. However, properties do not have a capacity that is consumed by placing a virtual entity on a physical entity. 
+We refer to a property offer $po_{pel_i}(pt_j) \in PO_{pel_i}$ by a property type $pt_j$ with $pel_i$ denoting a physical entity or link and $PO_{pel_i}$ denoting the set of property offers of $pel_i$. A property type defines the domain of valid values for a resource offer.
+\begin{equation}
+PT = \{ pt_i \mid 1 \leq i \leq \left\vert PT \right\vert \}
+\end{equation}
+\begin{equation}
+PO_{pel_i} = \{ po_{pel_i}(pt_j) \mid 1 \leq j \leq \left\vert PO_{pel_i} \right\vert \}
+\end{equation}
+Examples of properties and their domain for different physical entities are:
+\begin{itemize}
+	\item pm: physical location [?] [2DO: ref], processor type [intel, AMD] [2DO: ref]
+	\item ps: disk type [HDD, SSD] [2DO: ref]
+	%\item pl: link type
+	\item pw: 
+\end{itemize} 
+
+\subsection{Application Model}
+
+An \textit{application model} (AM) specifies functional and non-functional requirements of an application with regards to infrastructure that a Cloud provider provisions for the deployment of an application.
+A graphical representation of an AM is a non-directional graph $G^{a}=(V^{a},E^{a})$ with verticies $\{ v^{a}_i \mid v^{a}_i \in V^{a} \wedge 1 \leq i \leq \left\vert V^{a} \right\vert \}$ and edges $\{ e^{a}_i \mid e^{a}_i \in E^{a} \wedge 1 \leq i \leq \left\vert E^{a} \right\vert \}$ with $V^{a}$ denoting the set of virtual entities and $E^{a}$ denoting the set of \textit{communication requirements} between virtual entities.
+%We refer to an to an element of the unified set of verticies $V^{app}$ and edges $E^{app}$ as $vel_i$.
+We use the notation $vel_i$ to refer to an element of the unified set of verticies and edges $\{ vel_i \mid vel_i \in V^{a} \cup E^{a} \wedge 1 \leq i \leq \left\vert V^{a} \cup E^{a} \right\vert \}$.
+%\begin{equation}
+%V^{app} \cup E^{app} = \{ vel_i \mid 1 \leq i \leq |V^{app} \cup E^{app}| \}
+%\end{equation}
+
+\subsubsection{Virtual entities and network}
+
+%We distinguish between three sets of virtual entities in $V^{app}$: (i) \textit{virtual machines}, (ii) \textit{virtual volumes} (VM) and (iii) \textit{virtual communication paths} (VP).
+%We refer to a virtual machine by $vm_i \in VM$ with $VM$ denoting the set of virtual machines.
+We distinguish between two sets of virtual entities in $V^{app}$: (i) \textit{virtual machines} and (ii) \textit{virtual volumes}. We refer to a virtual machine by $vm_i \in VM$ with $VM$ denoting the set of virtual machines and to a virtual volume by $vv_i \in VV$ with $VV$ denoting the set of virtual volumes.
+\begin{equation}
+VM = \{ vm_i \mid 1 \leq i \leq \left\vert VM \right\vert \}
+\end{equation}
+%Is a gateway required?
+\begin{equation}
+VV = \{ vv_i \mid 1 \leq i \leq \left\vert VV \right\vert \}
+\end{equation}
+We express communication requirements between tupels of virtual entities by edges $e^{a}=(v^{a}_i, v^{a}_j)$. 
+%$e^{app}_i$ in the set $E^{app}$ and refer to an edge as \textit{virtual link} $vl_i$. Virtual links express communication requirements for any tupel of virtual entities.
+%\begin{equation}
+%E^{app} = \{ e^{app}_i=vl_i | 1 \leq i \leq |E^{app}| \}
+%\end{equation}
+
+\subsubsection{Resource and property demands}
+
+Virtual entities and communication demands express functional and non-functional requirements of an application deployment. For example, functional requirements of a virtual volume are capabilities for snapshots or backups. Non-functional requirements are, e.g., storage capacity and performance requirements. Functional requirements are captured by properties and non-functional requirements by resources demands or properties. 
+
+Functional requirements of a $vel_i$ are expressed by \textit{property demands}. We refer to a property demand by $pd_{vel_i}(rt_j) \in PD_{vel_i}$ with $PD_{vel_i}$ denoting the set of property demands of $vel_i$. 
+\begin{equation}
+PD_{vel_i} = \{ pd_{vel_i}(pt_j) \mid 1 \leq j \leq \left\vert PD_{vel_i} \right\vert \}
+\end{equation}
+Non-functional requirements of a $vel_i$ are expressed by property demands or \textit{resource demands}. We refer to the resource demand of $vel_i$ for a resource of resource type $rt_j$ by $rd_{vel_i}(rt_j) \in RD_{vel_i}$ with $RD_{vel_i}$ denoting the set of resource demands of $vel_i$. 
+\begin{equation}
+RD_{vel_i} = \{ rd_{vel_i}(rt_j) | 1 \leq j \leq \left\vert RD_{vel_i} \right\vert \}
+\end{equation}
+%A resource demand has a \textit{resource demand capacity} that expresses the amount of the demanded resource. We refer to a resource demand capacity by $c(rd_{vel_i}(rt_j))$. 
+
+
+\section{Placement - Mapping rules}
+
+A feasible solution to a placement problem requires to find an admissible mapping of an instance of an application model $G^{app}$ to an instance of a data center model $G^{dc}$. Therefore, virtual entities in an AM are assigned to physical entities in a DM. We present a set of mapping rules to constraint the placement problem.
+
+We refer to a $vel_i$ that is mapped to a subset of physical entities $H_j \subseteq V^{dc}$ as \textit{guest} and to $H_j$ as \textit{host} of $vel_i$, respectively. We use the notation $\phi(vel_i, H_j)$ to express an existing mapping relationship between a guest $vel_i$ and a set of hosts $( H_j \mid j \in N \wedge \left\vert H_j \right\vert \leq \left\vert V^d \right\vert)$. We present a number of mapping rules in form of implications that constraint admissible mappings of a $vel_i$ to match application requirements.
+
+\subsection{Generic mapping of virtual entities}
+
+Entity placement constraints restrict feasible mappings for single virtual entities to physical entities.
+Virtual machines are guests of physical machines, virtual volumes are guests of physical storage locations and virtual links are guests of a communication paths.   
+\begin{equation}
+vm_i \rightarrow \phi(vm_i, pm_j)
+\end{equation}
+\begin{equation}
+vv_i \rightarrow (\phi(vv_i, H_j) \mid H_j \subseteq PS)
+\end{equation}
+%A virtual link $vl_i$ is guest of a communication path $CP_i$. 
+%\begin{equation}
+%vl_i=(v^a_j, v^a_k) \rightarrow \phi(vl_i, CP) H_j = CP_k \in PCP
+%\end{equation}
+Furthermore, two virtual entities $v^{a}_i, v^{a}_j$ with communication demands are guests of physical entities that are connected.
+\begin{multline}
+(v^{a}_i, v^{a}_j) \rightarrow (\phi(v^{a}_i, v^{d}_k) \wedge \phi(v^{a}_j, v^{d}_l) \mid CP(v^{d}_k, v^{d}_l)) 
+\end{multline}
+
+A virtual entity $vel_i$ with a property demand $pd_{vel_i}(pt_j)$ is guest of physical entities that each provide a property offer of the same property type $pt_j$.
+\begin{multline}
+pd_{vel_i}(pt_j) \rightarrow \phi(vel_i, \{ pel_k \mid po_{pel_k}(pt_j) \})
+\end{multline}
+%\begin{multline}
+%(\phi(vel_i, H_j) \mid pd_{vel_i}(pt_k)) \rightarrow \\ \{ po_{pel_l}(pt_k) \mid pel_l \in H_j \}
+%\end{multline}
+
+A virtual entity $vel_i$ with a resource demand $rd_{vel_i}(rt_j)$ is guest of physical entities with a resource offer of the same resource type $ro_{pel_k}(rt_j)$.
+\begin{multline}
+rd_{vel_i}(rt_j)) \rightarrow \phi(vel_i, \{ pel_k \mid ro_{pel_k}(rt_j)\})
+\end{multline}
+%\begin{multline}
+%(\phi(vel_i, H_j) \mid rd_{vel_i}(rt_k)) \rightarrow \\ \{ ro_{pel_l}(rt_k) \mid pel_l \in H_j \} 
+%\end{multline}
+The aggregated resource demand of all guests for each resource offer of a host does not exceed the resource capacity of the resource offer.
+A guests with a resource demand of a resource type are mapped to hosts that provide enough capacity of the same resource type for the aggregated demand of all their guests.
+%\begin{equation}
+%c(ro_{pel_i}(rt_j)) \geq ( \sum_{k \in \{ vel_k \mid \phi(vel_k, pel_i) \}} rd_{vel_k}(rt_j)) 
+%\end{equation}
+\begin{multline}
+rd_{vel_i}(rt_j) \rightarrow ( \phi(vel_i, pel_k) \mid \\ c(ro_{pel_k}(rt_j)) \geq ( \sum_{l \in \{ vel_l \mid \phi(vel_l, pel_k) \}} rd_{vel_l}(rt_j)) 
+\end{multline}
+
+%All physical storage locations that host replicas of the same virtual volume must be connected.
+
+%Virtual entities can express functional and non-functional requirements of an application deployment. For example, functional requirements of a virtual volume are capabilities for snapshots or backups. Non-functional requirements are, e.g., storage capacity and performance requirements. Functional requirements are captured by properties and non-functional requirements by resources demands or properties. 
+%
+%Functional requirements of a virtual entity are expressed by assigning properties to the virtual entities. We refer to property that is assigned to a virtual entity as \textit{property demand} and use the following notation: $p_{pt_i,v^{app}_j}$. A virtual entity with a property demand $p_{pt_i,v^{app}_j}$ requires a physical entity with a corresponding property of $p_{pt_i,v^{dc}_j}$ as a host.
+%
+%Non-functional requirements of virtual entities are expressed by properties or \textit{resource demands}. A resource demand is expressed by a resource capacity that is assigned to a virtual entity. We refer to the resource demand of $v^{app}_j$ for a resource of resource type $rt_i$ by $rd(r_{rt_i,v^{app}_j})$.
+%
+%A feasible solution to a placement problem requires to find an admissible mapping $\phi(G^{app}, G^{dc})$ of virtual entities and virtual links in an AM to physical entities in a DCM. 
+%
+%We refer to a virtual entity $v^{app}_i$ that is mapped to a subset of physical entities $H_j \subseteq V^{dc}$ as \textit{guest} and to $H_j$ as \textit{host} of $v^{app}_i$, respectively. We use the notation $\phi(v^{app}_j, H_j)$ We present a number of constraints that restrict admissible mappings to match application requirements.
+%
+%$PMs$ can host $VMs$. 
+%\begin{equation}
+%\forall vm_i : \phi(vm_i, H_j) \rightarrow H_j \in PM
+%\end{equation}
+%A $VP$ is hosted by a set of $PLs$ and $PSs$ that represent a communication path $CP$. 
+%\begin{equation}
+%\forall vp_i : \phi(vp_i, H_j) \rightarrow H_j \in PCP
+%\end{equation}
+%Physical storage locations can host virtual volumes. 
+%\begin{equation}
+%\forall vv_i : \phi(vv_i, H_j) \rightarrow H_j \in PS
+%\end{equation}
+%We assume that virtual volumes can be replicated with a $replication factor$ of $rf(vv_i) \in \mathrm{N}$. A replicated virtual volume is hosted by a subset of of physical storage locations.
+%\begin{equation}
+%\forall vv_i \wedge rf(vv_i) : \phi(vv_i, H_j) \rightarrow H_j \subseteq PS \wedge |H_j| \leq rf(vv_i)
+%\end{equation}
+%All physical storage locations that host replicas of the same virtual volume must be connected.
+
+
+\subsection{Specific mapping of virtual volumes}
+We present a set of storage specific mapping rules to account for storage specific application requirements in placement decisions. 
+
+\subsubsection{Replication} 
+We assume that virtual volumes can be replicated with a \textit{replication factor} of $rf(vv_i) = \alpha \in \mathrm{N}$. The set of \textit{virtual volume replicas} (replicas) of the virtual volume $vv_i$ is defined by $( R_{vv_i} \mid 1 \leq \left\vert R_{vv_i} \right\vert \leq \alpha )$. A replicated virtual volume is guest of a set of physical storage locations. %Multiple replicas can be guest of the same physical storage location.
+We assume that multiple replicas are guests of different physical storage locations. 
+\begin{equation}
+rf(vv_i) = \alpha \rightarrow ( \phi(vv_i, \{ps_j\}) \mid \left\vert \{ps_j\} \right\vert = \alpha )
+\end{equation}
+%\begin{equation}
+%( \phi(vv_i, H_j) \mid rf(vv_i) ) \rightarrow H_j \subseteq PS \wedge |H_j| \leq rf(vv_i)
+%\end{equation}
+
+% Write performance of hypervisor-replicated virtual volumes with synchronous update propangation
+ 
+\subsubsection{Property offer similarity}
+We assume that an operating system of a virtual machine $vm_i$ observers a write performance for a mounted virtual volume $vv_j$ that synchronously propagates updates to all replicas in $R_{vv_j}$ through hypervisor-level replication. We further assume that replicas are guests of physical storage locations with different write performance characteristics, e.g., through the usage of SSD and HDD \cite{Zhou2013}. In this case, the physical storage location with the lower write performance can degrade the write performance observed by $vm_i$. We propose to account for such cases by enabling the placement of a set of replicas $R_{vv_j}$ on physical storage locations with similar performance characteristics. We assume that the performance characteristics of a physical storage location is continuously captured by the Cloud provider in a property offer. Examples of recent approaches to capture such performance characteristics are presented in \cite{Noorshams2013a, Noorshams2013b, Noorshams2013c}. 
+%Therefore, a virtual volume $vv_i$ can specify a property requirement $r_{prop}(vv_i)=pt_l$ for property offers of the same property type $pt_l$.
+%A placement satisfies this property requirement if:
+%\begin{equation}
+%r_{prop}(vv_i)=pt_j \rightarrow \phi(vv_i, \{ps_k \mid po_{ps_k}(pt_j) \})
+%\end{equation}
+%\begin{equation}
+%\phi(vv_i, H_j) \rightarrow \{ po_{ps_k}(pt_l) | ps_k \in H_j \}
+%\end{equation}
+The provisioning of multiple virtual volumes with similar storage performance characteristics for multiple virtual machines can simplify the management of a distributed application. Therefore, we allow the specification of a property requirement $r_{prop}(\{vv_i\})= ( \beta \mid \beta \in PT )$ for a set of virtual volumes $\{vv_i\}$. A property requirement ensures that all virtual volumes in $\{vv_i\}$ are placed on physical entities with the same property offer without specifying the property offer itself.
+%A placement satisfies this property requirement if:
+\begin{equation}
+r_{prop}(\{vv_i\}) = \beta \rightarrow \{ \phi(vv_i, \{ps_k \mid po_{ps_k}(\beta) \}) \}
+\end{equation}
+% ( \phi(vv_i, H_j) \rightarrow \{ po_{ps_k}(pt_l) | ps_k \in H_j \} \mid vv_i \in VV_m)
+%\begin{equation}
+%( \phi(vv_i, H_j) \mid rf(vv_i) ) \rightarrow \{ po_{ps_k}(pt_l) | ps_k \in H_j \}
+%\end{equation}
+
+\subsubsection{Physical storage colocation}
+We assume that replicas $R_{vv_i}$ of a virtual volume $vv_i$ are \textit{colocated}, i.e., guests of the same physical storage location, or \textit{anti-colocated}, i.e., guests of different physical storage locations. Cloud provider can benefit from transparent placement of colocated and anti-colocated replicas through increased opportunities for load-balancing and data center-wide reduction of bandwidth usage. We argue that transparent co-location of replicas can degrade the durability of a virtual volume. A virtual volume $vv_i$ can specify a colocation requirement $r_{col}(vv_i)=\gamma$ with $\gamma$ denoting the number of collocated replicas. 
+%A placement satisfies this colocation requirement if:
+\begin{equation}
+r_{col}(vv_i)=\gamma \rightarrow ( \phi(vv_i, H_j) \mid \gamma \leq \left\vert H_j \right\vert \leq rf(vv_i))
+\end{equation}
+%\begin{equation}
+%( \phi(vv_i, H_j) \mid rf(vv_i) ) \rightarrow (|H_j| \leq \alpha \mid \alpha \leq rf(vv_i))
+%\end{equation}
+
+Furthermore, we account for the case that applications store data redundantly on multiple virtual volumes that are potentially not replicated and/or mounted by different virtual machines. Therefore, we allow to specify colocation requirements $r_{col}(\{vv_i\})=\gamma$ on a set of virtual volumes.
+%A placement satisfies this colocation requirement if:
+\begin{equation}
+r_{col}( \{ vv_i \} ) = \gamma \rightarrow \{ \phi(vv_i, H_j) \mid \gamma \leq \left\vert \cap H_j \right\vert \}
+\end{equation}
+%1 \leq j \leq \left\vert {vv_i} \right\vert, 
+%\begin{multline}
+%( ( \phi(vv_i, H_j) \mid rf(vv_i) ) \rightarrow (\left\vert H_j \right\vert \leq \alpha \mid \alpha \leq rf(vv_i)) \mid \\ vv_i \in VV_m )
+%\end{multline}
+
+\subsubsection{Communication path colocation}
+%We assume that a virtual volume $vv_i$ is mounted by a virtual machine $vm_j$ and replicated.
+%Furthermore, the set of hosts $H_j$ of the set of replicas $R_{vv_i}$ are connected to the host $pm(vm_j)$ of $vm_j$.
+%We assume that the availability of $vv_i$ that is observed by $vm_j$ degrades with routing traffic to different replicas through the same switches. 
+We account for the case that a virtual machine mounts multiple virtual volumes to increase the availability of block storage accessible from the operating system. Therefore, we try to increase the \textit{overall availability} of a number of mounted block storage volumes visible to the operating system of a virtual machine during placement. We assume that the overall availability degrades with overlapping communication paths from the host of a VM to the hosts of mounted virtual volumes. We measure the degree of overlap in terms of shared switches on a set of communication paths.
+We allow the specification of an \textit{availability requirement} $r_{avb}(vm_i, \{vv_j\}) = \delta$ for a virtual machine $vm_i$ and a set of virtual volumes $\{ vv_j \mid (vm_i, vv_j) \}$. The availability requirement $\beta$ describes an upper bound for the number of shared switches on the set of communication paths that connect the host of $vm_i$ with the hosts of $\{vv_j\}$.
+%We  virtual volume $vv_i$ can specify a pair availability requirement $r_{avb}(vv_i) = \beta$ with $\beta$ denoting the max number of collocated switches on the communication paths in $PCP_k$. 
+%A placement satisfies this availability requirement if:
+\begin{equation}
+r_{avb}(vm_i, \{vv_j \mid (vm_i, vv_j)\}) = \delta
+\end{equation}
+\begin{multline}
+r_{avb}(vm_i, \{vv_j\}) = \delta \rightarrow \delta \leq | \{ sw_k \mid sw_k \in \\ (CP_{pm_l,ps_m} \mid \sigma(vm_i,pm_l) \wedge \sigma(vv_j, \{ ps_m \}) \} |
+\end{multline}
+%\leq |\{ sw_l \mid (sw_l \in CP_{pm(vm_j), ps(vv_k)} \mid vv_k \in H_j ) \}|
+\section{Placement - Optimization Problem}
+
+\subsection{Preferences}
+Application Expert preferences
+\begin{itemize}
+	\item Functional requirements
+	\item Non-functional requirements
+\end{itemize}
+
+Cloud provider preferences
+\begin{itemize}
+	\item Load-balancing
+	\item Rejection rate
+	\item Efficient resource usage
+\end{itemize}
+
+\subsection{Objective Function}
+
+\section{Algorithm}
+
+[2Do: Algorithm goes here]
+
+\section{Evaluation}
+
+[2Do: Evaluation goes here]
+\subsection{Implementation}
+
+\subsection{Performance}
+
+\begin{itemize}
+	\item Evaluate solver time for standard data center sizes
+\end{itemize}
+
+\subsection{Scalability}
+
+\section{Conclusion}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,ibm_lib}
+
+\end{document}

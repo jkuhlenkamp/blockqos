@@ -1,0 +1,116 @@
+\section{Information available to infrastructure provider}
+
+$\lceil demand \rceil = min \{req\_cap | req\_cap \geq demand \}$
+
+Physical data-center model
+\begin{itemize}
+	\item Set of physical machines: $PM={p_i : 1 \leq i \leq |PM|}$
+	\item Set of resources for a physical machine $p_i$: $R_i={r_{i,j} : 1 \leq j \leq |R_i|}$
+	\item Set of resource capacities for a physical machine $p_i$: $C_i={r_{i,k} : 1 \leq k \leq |C_i|}$
+	\item Set of storage appliances: $SA={s_l : 1 \leq l \leq |SA|}$ % e.g. DS4000
+	\item Set of storage devices for a storage appliance/system $s_l$: $SD={s_{l,m} : 1 \leq m \leq |SA|}$
+	\item Set of resources for a storage device $p_i$: $R_i={r_{i,j} : 1 \leq j \leq |R_i|}$
+	\item Set of resource capacities for a storage device $p_i$: $C_i={r_{i,k} : 1 \leq k \leq |C_i|}$
+	\item Set of switches: $SW={s_n : 1 \leq n \leq |SW|}$ % Are the same for storage-network and application-network
+	\item Set of network links: $LK={s_o : 1 \leq o \leq |LK|}$
+	\item Set of network
+\end{itemize}
+
+Properties of data-center model
+\begin{itemize}
+	\item Replication factor
+	\item Replica placement
+	\item Availability: network partitioning, performance, permanent failure
+	\item Scalability: 
+\end{itemize}
+
+
+Application Requirement Model
+
+\begin{itemize}
+\item distance compute node to storage node
+\item distance storage node to storage node
+\item storage disk type
+\item maintenance times
+\item relocation and migration times and targets
+\item availability of a storage node
+\item availability of a storage node set
+\item durability of a storage node
+\item durability of a storage node set
+\end{itemize}
+
+\section{Experiments}
+
+\subsection{Testbed}
+\begin{itemize}
+\item 4 rack cluster
+\item DAS (spindles) on every single machine
+\item SAN (GPFS, V7000)
+\end{itemize}
+
+\subsection{Experiment types}
+\subsubsection{Access [rather resource] transparency}
+\begin{itemize}
+\item Change classes of storage devices that provide different characteristics for access methods [seq. vs. random read/write]
+\end{itemize}
+
+\subsubsection{Location transparency}
+\begin{itemize}
+\item Change distance between compute and storage
+\end{itemize}
+
+\subsubsection{Replications transparency}
+\begin{itemize}
+\item Change replication factor of storage
+\end{itemize}
+
+\subsubsection{Migration and relocation transparency}
+\begin{itemize}
+\item Change algorithm and placement for migration and relocation
+\end{itemize}
+
+\subsubsection{Administrative transparency}
+\begin{itemize}
+\item Change country?
+\item Change area with compliance to standard
+\end{itemize}
+
+\section{Class of metrics}
+
+\begin{itemize}
+	\item overall network traffic in data center
+	\item run-time performance of individual tasks
+\end{itemize}
+
+%\subsection{Network access}
+%\subsection{Data Store Nodes}
+%\subsection{Disk I/O}
+%
+%\begin{itemize}
+%	\item Replica
+%	\begin{itemize}
+%		\item \# replica
+%		\item update propagation schema
+%		\item distance between replica
+%	\end{itemize}
+%	\item Data cluster
+%	\begin{itemize}
+%		\item Block size
+%		\item  
+%	\end{itemize}
+%	\item Geo-distribution
+%	\begin{itemize}
+%		\item continent
+%		\item country
+%	\end{itemize}
+%	\item Data-distribution
+%	\begin{enumerate}
+%		\item distance between data shards
+%		\item granularity of data shards
+%	\end{enumerate}
+%\end{itemize}
+%
+%Cluster Recognition
+%Replica
+%Geo-graphical Deployment
+%Distance-aware deploymentCluster Recognition

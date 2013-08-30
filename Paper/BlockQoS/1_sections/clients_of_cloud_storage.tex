@@ -1,0 +1,181 @@
+\section{Client-side optimization of Application Configuration and Deployment in Software Defined Environments}
+
+\subsection{3-Tier Web Apps}
+	Workload characterization
+	\begin{itemize}
+		\item \# requests
+		\item request size
+		\item data spikes
+	\end{itemize}
+	
+\subsection{Infrastructure related optimization approaches}
+	
+	Goal: Avoid data shuffling \cite{Zhou2012}
+	\begin{itemize}
+		\item Reduce number of connections
+		\item Reduce amount of data transferred
+	\end{itemize}
+	
+	Goal: Reduce skew \cite{Kwon2012}
+	\begin{itemize}
+		\item Mitigate expensive record (map phase)
+		\item Mitigate heterogeneous map (map phase)
+		\item Mitigate partitioning skew (reduce phase)
+		\item Mitigate expensive key group (reduce phase)
+	\end{itemize}
+	
+	Goal: Select hardware that supports access pattern
+	
+	
+	\begin{itemize}
+		\item identify task with greatest remaining execution time and proactively repartition
+	\end{itemize}
+\subsection{Hadoop}
+	Abbreviations
+	\begin{itemize}
+		\item data center (DC)
+		\item virtual machine (VM)
+		\item logical volume (LV)
+		\item physical spindle (SD)
+	\end{itemize}
+
+	Optimization approaches for Hadoop based on transparency
+	\begin{itemize}
+		\item Place LV and VM in close proximity
+		\begin{itemize}
+			\item Goal: (VM disk i/o latency) Reduce disk I/O latency by reducing network latency
+			\item Goal: (DC network utilization/efficiency) Reduce bandwidth utilization in DC
+			\item Measurement: Network hops
+		\end{itemize}	
+		\item Ensure exclusive usage of a SD for a LV
+		\begin{itemize}
+			\item Goal: (VM disk I/O throughput) increasing sequential run length on PS by reducing seek times and data fragmentation 
+			\item Assumptions: data not fragmented and access not changed
+			\item Mount point for physical disk in Hadoop: dfs.data.dir			
+			\item Approach presented in: \cite{Shaffer2010}
+		\end{itemize}
+		\item Place data in NRAID
+		\begin{itemize}
+			\item Goal: (VM disk I/O throughput) increasing sequential run length on PS by reducing data fragmentation
+			\item Assumptions:
+			\item Approach presented in:
+		\end{itemize}
+		
+		\item Place VM(namenode) and VM(datanode) in close proximity
+		\begin{itemize}
+			\item Goal: Decrease request-response latency between Datanode and Namenode
+			\item Blocking access to Namenode
+			\item Goal: (Performance) Reduce
+			\item Approach presented in: \cite{Shaffer2010}
+		\end{itemize}
+		\item Replicate file system data to different physical devices
+		\begin{itemize}
+			\item Blocking access to Namenode
+			\item Goal: (Durability)
+			\item Approach presented in: \cite{Shaffer2010}
+		\end{itemize}
+	\end{itemize}
+	
+	
+	
+	Tuning knobs (based on \cite{Venner2009})
+	\begin{itemize}
+		\item \textbf{Block size}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: $disk seek / rw time$
+			\item Conf. param: 
+			\item Best-practices: 
+		\end{enumerate}
+		\item \textbf{File Descriptor}
+		\begin{enumerate}
+			\item Description: $\#$of file descriptors
+			\item Trade-off: 
+			\item Config param: [per-user -, per-system file descriptor limit]
+			\item Best-practices: process that access hdfs should have a large limit
+		\end{enumerate}
+		\item \textbf{Block Service Threads}
+		\begin{enumerate}
+			\item Description: size of thread pool that handle block requests 			
+			\item Trade-off: JVM overhead vs. overlap for disk and network I/O
+			\item Conf. param: $dfs.datanode.handler.count$
+			\item Best-practices: [small cluster = 3, medium cluster = 30]
+		\end{enumerate}
+		\item \textbf{NameNode Threads}
+		\begin{enumerate}
+			\item Description: size of thread pool that handle namenode transactions
+			\item Trade-off: memory utilization vs. $\#$ file system timeouts
+			\item Conf. param: $dfs.namenode.handler.count$
+			\item Best-practices: [default = 10, 20 data node = 512]
+		\end{enumerate}
+		\item \textbf{Server Pending Connections}
+		\begin{enumerate}
+			\item Description: listen depth for accepting connections
+			\item Trade-off: 
+			\item Conf. param: $ipc.server.listen.queue.size$
+			\item Best-practices: [default = 128, ] 
+		\end{enumerate}
+		\item \textbf{Reserved Disk Space}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{Storage Allocations}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{Disk I/O}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{Network I/O}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{NameNode Recovery}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{DataNode Recovery \& Addition}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{DataNode Decommissioning}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{Delete File Recovery}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+		\item \textbf{NameNode Failures}
+		\begin{enumerate}
+			\item Description: 
+			\item Trade-off: 
+			\item Conf. param: $ $
+			\item Best-practices: [default = , ] 
+		\end{enumerate}
+	\end{itemize}

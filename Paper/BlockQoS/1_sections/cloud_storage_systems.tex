@@ -1,0 +1,123 @@
+% This section describes a set of service qualities that are perceived by clients of Cloud storage
+\section{Introduction}
+Problems: opaque infrastructure details and transparent infrastructure management result in different problems.
+\begin{itemize}
+\item (client) unknown storage performance \cite{Kossmann2010, Schad2010} (demands multiple provisioning and testing)
+\item (client) performance variability \cite{Kossmann2010, Schad2010}
+%\item (client) unknown availability \cite{Kossmann2010}
+\item (client) increased cost through undemanded availability and durability 
+\item (client) hard to assess different deployment, configuration and management options 
+\item (provider) hard to give performance guarantees 
+\item (provider) hard to price performance guarantees (planed over commitment)
+\end{itemize}
+
+Approach: Provide a new storage abstraction for software defined storage providers and clients can beneift from. Providers can estimate demand and thus (i) apply reservations, (ii) guarantee service level objectives (iii) balance guarantees and revenue. Clients can (i) optimize deployment, configuration and management for storage and (ii) profit from cheaper offering by selecting offers with unwanted service quality.
+
+What is the current abstraction? 
+\begin{enumerate}
+	\item Cinder API
+	\item AWS
+	\item Google
+\end{enumerate}
+
+What is the current physical infrastructure
+\begin{enumerate}
+	\item DAS ephemeral
+	\item Networked storage (many protocols possible)
+	\item multibackends (multiple storage solutions attached to a single instance)
+	\item 
+\end{enumerate}
+
+We propose to extend the client-provider interface with regards to storage.
+\begin{enumerate}
+	\item Thesis: DAS is subject to under-utilization.
+	\item Thesis: DAS does not scale.
+	\item Thesis: Data center use shared networked storage.
+	\item Thesis: Storage performance for clients can vary significantly.
+\end{enumerate}
+
+Why do we predictable SLAs for IaaS offer:
+\begin{itemize}
+	\item (client) performance optimization of map reduce jobs
+	\item (client) evaluation of different deployment and configuration options
+	\item (provider) low risk oversubscribtion
+	\item (provider) reducing rejection rate 
+\end{itemize}
+
+\section{Foundations}
+
+\subsection{Software Defined Environments}
+
+What is our [the right :)] understanding of a software defined environment (SDE)?
+Software based management of ...
+\begin{itemize}
+\item pooled physical resources
+\item provisioning of services for multiple clients/tenants
+\item maintenance
+\end{itemize}
+
+SDEs can use SDS. How ist SDS used in SDEs?
+\begin{itemize}
+\item Object storage
+\item Block storage
+\end{itemize}
+
+\subsection{Software Defined Storage}
+
+What is our [the right :)] understanding of software defined storage (SDS)?
+\begin{itemize}
+\item Def \textbf{Storage virtualization}: "Storage virtualization refers to the process of abstracting physical storage into virtualized containers called virtual disks (Vdisks) that can be used by applications." \cite{Singh2008}
+\item Def. \textbf{Virtualization}: "Virtualizing a system or component at a given abstraction level maps its interface and resources of an underlying, possible different, real system. [...] Unlike abstraction, virtualization does not necessarily aim to simplify or hide details." \cite{Smith2005]}
+\item Def. \textbf{Software Defined Storage}: Storage virtualization. We define it as...
+	\begin{itemize}
+		\item \textbf{visible abstraction level}: Block storage volumes that are attached to an operating system 
+		\item \textbf{visible interface}:  iSCSI, FCoE
+		\item \textbf{visible resources}: block storage volume with non-functional properties
+		\item \textbf{[real] underlying system}: DAS, SAN, NAS, (Distributed File system)?
+		\item \textbf{underlying interface(s)}: ?
+		\item \textbf{underlying resources}: (disks, SSDs, flash, tape, ...) ?
+	\end{itemize}
+\end{itemize}
+
+What types of SDSs exist?
+\begin{itemize}
+\item ...
+\end{itemize}
+
+\subsection{Transparency in Distributed Systems}
+
+\begin{itemize}
+\item \textbf{Client} - user of a distributed system (for block storage OS on VM)
+\item \textbf{Resource} - computers, networks, files, storage facilities \cite{Tanenbaum2007}
+\end{itemize}
+
+
+Based on \cite{Tanenbaum2007, Iso1996}
+\begin{itemize}
+\item \textbf{Access transparency}: Hides data representation and access.
+\item \textbf{Location transparency}: Hides physical location.
+\item \textbf{Migration transparency}: Relocation of a resource does not effect how the resource is accessed.
+\item \textbf{Relocation transparency}: Relocation of [any] resource r1 does not result in visible side-effects for the accessing client of [any] resource r2. (based on \cite{Tanenbaum2007} [changed same resource to any resource])
+\item \textbf{Replication transparency}: Hides the fact that multiple copies of a resource exist.
+\item \textbf{Concurrency transparency}: "[...] each user does not notice that the other is making use of the same resource" \cite{Tanenbaum2007}
+\item \textbf{Failure transparency}: "A client does not notice that a resource fails to work properly."
+\item \textbf{Maintenance [Management] transparency}: Maintenance of a resource under access does not result in visible side-effects for the accessing client
+\item \textbf{Federation transparency}: A client does not notice that resources in different administrative domains are accessed
+\end{itemize}
+
+\section{Data center Architectures}
+
+\subsection{data center topologies}
+\begin{itemize}
+\item Three-tier architecture (tree) \cite{Al-Fares2008, Meng2010, Ballani2011, Al-Fares2008}
+\item VL2 architecture \cite{Meng2010, Ballani2011, Al-Fares2008}
+\item PortLand architecture (fat-tree) \cite{Meng2010, Ballani2011}
+\item BCube architecture \cite{Meng2010}
+\end{itemize}
+
+\subsection{storage management}
+\begin{itemize}
+\item Snapshots -> increase durability (if backed up), availability (decreasing recovery time)
+\item Redundant storage ->
+\item characterize 
+\end{itemize}
